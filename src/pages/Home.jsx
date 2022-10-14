@@ -4,10 +4,15 @@ import Header from "../components/Header";
 import Form from "../components/Form";
 import TodoList from "./TodoList";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 import { ImPencil } from "react-icons/im";
+import AddTodo from "./AddTodo";
+
+// 수정 필요 이슈 :
+// 1)할일 기록하기 글자를 눌러야만 AddTodo 페이지로 이동하는 이슈
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     // Layout 컴포넌트
     <Layout>
@@ -17,19 +22,30 @@ const Home = () => {
         <STWrapper>
           <STAsk>무엇을 할까요?</STAsk>
           <STTodoRecord>
-            <STTodoRecordItem title='할일 기록하기'>
+            <STTodoRecordItem
+              // 할일 기록하기 글자를 누르면 AddTodo 컴포넌츠로 이동
+              onClick={() => {
+                navigate("/addtodo");
+              }}
+              //   title='할일 기록하기'
+            >
               할일 기록하기
             </STTodoRecordItem>
             <ImPencil style={{ color: "rgb(254, 83, 31)" }}></ImPencil>
           </STTodoRecord>
           <STTodoRecord>
-            <STTodoRecordItem>TODO LIST 확인하기</STTodoRecordItem>
+            <STTodoRecordItem
+              onClick={() => {
+                navigate("/todolist");
+              }}
+              //   title='할일 기록하기'
+            >
+              TODO LIST 확인하기
+            </STTodoRecordItem>
             <ImPencil style={{ color: "rgb(254, 83, 31)" }}></ImPencil>
           </STTodoRecord>
-          {/* Form 컴포넌트 */}
-          <Form />
+
           {/* TodoList 컴포넌트 */}
-          <TodoList />
         </STWrapper>
       </STContainer>
     </Layout>
