@@ -62,6 +62,7 @@ const Form = () => {
       editID: false
       };
       // addTodo 더할 때는 형태에 맞게 더하기
+      // try-catch문 필요 : 
     axios.post("http://localhost:3001/todos", obj);
     dispatch(addTodo(todo));
 
