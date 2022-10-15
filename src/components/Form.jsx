@@ -54,7 +54,15 @@ const Form = () => {
     ) {
       return alert("모든 항목을 입력해주세요.");
     }
-    axios.post("http://localhost:3001/todos", todo);
+    const obj = {
+      id:getMaxId()+1,
+      title: todo.title,
+      body: todo.body,
+      writer: todo.writer,
+      editID: false
+      };
+      // addTodo 더할 때는 형태에 맞게 더하기
+    axios.post("http://localhost:3001/todos", obj);
     dispatch(addTodo(todo));
 
     // 입력란 공백을 위한 공객체 생성
@@ -70,31 +78,12 @@ const Form = () => {
   useEffect(() => {
     fetchTodos();
   }, []);
-
+ 
   return (
     <STContainer>
       <STWrapper>
         <STForm
           onSubmit={onSubmitHandler}
-          // onSubmit={(event) => {
-          //   event.preventDefault();
-          //   if (
-          //     todo.body.trim() === "" ||
-          //     todo.writer.trim() === "" ||
-          //     todo.title.trim() === ""
-          //   ) {
-          //     return alert("모든 항목을 입력해주세요.");
-          //   }
-          //   dispatch(addTodo(todo));
-          //   // 입력란 공백을 위한 공객체 생성
-          //   setTodo({
-          //     id: "",
-          //     body: "",
-          //     content: "",
-          //     isDone: false,
-          //     editID: false,
-          //   });
-          // }}
         >
           <STInputForm>
             <STWritter>작성자</STWritter>

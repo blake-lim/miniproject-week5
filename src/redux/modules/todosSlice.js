@@ -3,22 +3,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  todos: [
-    // {
-    //   id: 0,
-    //   title: "React",
-    //   body: "리액트는 어려워",
-    //   isDone: false,
-    //   editID: false,
-    // },
-    // {
-    //   id: 1,
-    //   title: "Redux",
-    //   body: "리덕스는 더 어려워",
-    //   isDone: true,
-    //   editID: false,
-    // },
-  ],
+  todos: [],
 };
 
 const todosSlice = createSlice({
@@ -27,7 +12,6 @@ const todosSlice = createSlice({
   reducers: {
     addTodo: (state, action) => {
       state.todos = [...state.todos, { ...action.payload }];
-      console.log("리듀서에 넘어옴", state.todos);
     },
 
     deleteTodo: (state, action) => {
