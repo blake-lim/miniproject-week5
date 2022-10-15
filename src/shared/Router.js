@@ -19,7 +19,7 @@ const Router = () => {
         <Route path='todolist' element={<TodoList />} />
 
         {/* 투두리스트 카드별 상세보기 페이지로 이동하기 */}
-        <Route path='/:id' element={<TodoDetail />} />
+        <Route path='/tododetail/:id' element={<TodoDetail />} />
       </Routes>
     </BrowserRouter>
   );

@@ -13,12 +13,6 @@ const todosSlice = createSlice({
     addTodo: (state, action) => {
       state.todos = [...state.todos, { ...action.payload }];
     },
-
-    deleteTodo: (state, action) => {
-      state.todos = state.todos.filter(
-        (todos) => todos.id !== parseInt(action.id),
-      );
-    },
   },
 });
 
