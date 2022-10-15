@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+// import { deleteTodo } from "../redux/modules/todosSlice";
 
 const TodoList = () => {
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-  console.log(todos)
+
   // axios를 통해서 get 요청을 하는 함수를 생성합니다.
   // 비동기처리를 해야하므로 async/await 구문을 통해서 처리합니다.
   const fetchTodos = async () => {
@@ -22,7 +22,21 @@ const TodoList = () => {
     // data fetching이 정상적으로 되었는지 콘솔을 통해 확인합니다    
   };
 
- 
+const onDeleteHandler = async(id) => {
+  const result = window.confirm("삭제하시겠습니까?")
+  if(result) {
+    await axios.delete(`http://localhost:3001/todos/${id}`)
+    const {data} = await axios.get("http://localhost:3001/todos")
+    setTodos(data)
+    }else{
+    return
+  }
+
+}
+useEffect(() => {
+  fetchTodos();
+}, []);
+ console.log(todos)
   return (
     <div>
       <STHeader>
@@ -43,14 +57,16 @@ const TodoList = () => {
         <STHeaderTitle>3조의 투두리스트</STHeaderTitle>
         {/* 폼 태그 컴포넌츠 */}
       </STHeader>
-      {todos === undefined ? (
-        <div>
-          <h2>할일이 없네요</h2>
-        </div>
-      ) : ( todos.map(todo => <STContent key={todo.id}>
+      {todos.length > 0 ? ( todos.map(todo => <STContent key={todo.id}>
+      {/* 배열이 빈배열일 때를 판단할 때는 length를 사용한다. */}
         <div><h3>{todo.title}</h3></div>
         <div>작성자 : {todo.writer}</div>
+        <StDelButton type="button" onClick={()=>{onDeleteHandler(todo.id)}}>삭제</StDelButton>
         </STContent>)
+      ) : 
+        (<div>
+          <h2>할일이 없네요</h2>
+        </div>
       )}
     </div>
   );
@@ -87,4 +103,24 @@ const STContent = styled.div`
   padding : 20px;
 `
 
+const StDelButton = styled.button`
+  border: none;
+  background-color: red;
+  color : white;
+  height: 25px;
+  cursor: pointer;
+  width: 120px;
+  border-radius: 12px;
+  margin: 10px;
+
+`;
+
 export default TodoList;
+
+
+
+// if (result) {
+//   dispatch(deleteTodo(id))
+// }else{
+//   return
+// }

@@ -16,7 +16,7 @@ const todosSlice = createSlice({
 
     deleteTodo: (state, action) => {
       state.todos = state.todos.filter(
-        (todos) => todos.id !== parseInt(action.id)
+        (todos) => todos.id !== parseInt(action.id),
       );
     },
   },
