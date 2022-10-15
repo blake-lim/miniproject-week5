@@ -26,6 +26,8 @@ const onDeleteHandler = async(id) => {
   const {data} = await axios.get("http://localhost:3001/todos")
   setTodos(data)
 
+  // async await로 id 값 추적 후 지우고 나머지는 가져와서 아래서 mapping
+
 }
 
 useEffect(() => {
@@ -57,9 +59,9 @@ useEffect(() => {
       {/* 배열이 빈배열일 때를 판단할 때는 length를 사용한다. */}
         <div><h3>{todo.title}</h3></div>
         <div>작성자 : {todo.writer}</div>
-        {/* <StDelButton type="button" onClick={()=>{onDeleteHandler(todo.id)}}>삭제</StDelButton> */}
         <StDelButton type="button" onClick={(event) => {
                                                         event.stopPropagation();
+                                                        // 이벤트 버블링을 막는 법. 삭제, 여백 등 같이 있을 때 이벤트가 퍼질 때 막는 것
                                                         const result = window.confirm("이 할일을 지울까요?");
                                                         if (result) {
                                                         return onDeleteHandler(todo.id);
@@ -121,15 +123,3 @@ const StDelButton = styled.button`
 `;
 
 export default TodoList;
-
-// const onDeleteHandler = async(id) => {
-//   const result = window.confirm("삭제하시겠습니까?")
-//   if(result) {
-//     await axios.delete(`http://localhost:3001/todos/${id}`)
-//     const {data} = await axios.get("http://localhost:3001/todos")
-//     setTodos(data)
-//     navigate("/todolist")
-// }else{
-//   return
-// }
-// }
