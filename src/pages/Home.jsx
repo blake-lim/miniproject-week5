@@ -1,13 +1,18 @@
 import React from "react";
 import Layout from "../components/Layout";
 import Header from "../components/Header";
-import Form from "../components/Form";
-import TodoList from "./TodoList";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 import { ImPencil } from "react-icons/im";
 
+// import Bg from "../asset/Bg.jpg";
+
+// 수정 필요 이슈 :
+// 1)할일 기록하기 글자를 눌러야만 AddTodo 페이지로 이동하는 이슈
+// 2)이미지 삽입 관련 다민님이랑 회의
+
 const Home = () => {
+  const navigate = useNavigate();
   return (
     // Layout 컴포넌트
     <Layout>
@@ -16,20 +21,31 @@ const Home = () => {
       <STContainer>
         <STWrapper>
           <STAsk>무엇을 할까요?</STAsk>
+
           <STTodoRecord>
-            <STTodoRecordItem title='할일 기록하기'>
+            <STTodoRecordItem
+              // 할일 기록하기 글자를 누르면 AddTodo 컴포넌츠로 이동
+              onClick={() => {
+                navigate("/addtodo");
+              }}
+            >
               할일 기록하기
             </STTodoRecordItem>
             <ImPencil style={{ color: "rgb(254, 83, 31)" }}></ImPencil>
           </STTodoRecord>
           <STTodoRecord>
-            <STTodoRecordItem>TODO LIST 확인하기</STTodoRecordItem>
+            <STTodoRecordItem
+              // TODO LIST 확인하기 글자를 누르면 TodoList 컴포넌츠로 이동
+              onClick={() => {
+                navigate("/todolist");
+              }}
+            >
+              TODO LIST 확인하기
+            </STTodoRecordItem>
             <ImPencil style={{ color: "rgb(254, 83, 31)" }}></ImPencil>
           </STTodoRecord>
-          {/* Form 컴포넌트 */}
-          <Form />
+
           {/* TodoList 컴포넌트 */}
-          <TodoList />
         </STWrapper>
       </STContainer>
     </Layout>
@@ -87,5 +103,9 @@ const STTodoRecordItem = styled.div`
 const STTodoRecordIcon = styled.div`
   color: rgb(254, 83, 31);
 `;
+
+// const STImage = styled.div`
+//   background: url(${Bg});
+// `;
 
 export default Home;
