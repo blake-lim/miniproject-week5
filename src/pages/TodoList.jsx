@@ -47,10 +47,10 @@ const TodoList = () => {
         <div>
           <h2>할일이 없네요</h2>
         </div>
-      ) : ( todos.map(todo => <div key={todo.id}>
-        <div>{todo.title}</div>
-        <div>{todo.writer}</div>
-        </div>)
+      ) : ( todos.map(todo => <STContent key={todo.id}>
+        <div><h3>{todo.title}</h3></div>
+        <div>작성자 : {todo.writer}</div>
+        </STContent>)
       )}
     </div>
   );
@@ -79,5 +79,12 @@ const STHeaderTitle = styled.div`
   outline: none;
   font-family: "Noto Sans KR", sans-serif;
 `;
+
+const STContent = styled.div`
+  border: 1px solid grey;
+  border-Radius : 25px;
+  margin : 10px;
+  padding : 20px;
+`
 
 export default TodoList;
