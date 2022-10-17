@@ -6,11 +6,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const TodoList = () => {
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+
   // axios를 통해서 get 요청을 하는 함수를 생성합니다.
   // 비동기처리를 해야하므로 async/await 구문을 통해서 처리합니다.
   const fetchTodos = async () => {
@@ -18,17 +17,22 @@ const TodoList = () => {
     setTodos(data);
     // 서버로부터 fetching한 데이터를 useState의 state로 set 합니다.
     // 생성한 함수를 컴포넌트가 mount 됐을 떄 실행하기 위해 useEffect를 사용합니다.
-    // data fetching이 정상적으로 되었는지 콘솔을 통해 확인합니다.
-    console.log("받아온 데이터", data.length); // App.js:16
-    // if (data === [] || data === undefined) {
-    //   return (
-    //     <div>
-    //       <h2>할일이 없네요</h2>
-    //     </div>
-    //   );
-    // }
+    // data fetching이 정상적으로 되었는지 콘솔을 통해 확인합니다    
   };
 
+
+const onDeleteHandler = async(id) => {
+  await axios.delete(`http://localhost:3001/todos/${id}`)
+  const {data} = await axios.get("http://localhost:3001/todos")
+  setTodos(data)
+
+  // async await로 id 값 추적 후 지우고 나머지는 가져와서 아래서 mapping
+
+}
+
+useEffect(() => {
+  fetchTodos();
+}, []);
   return (
     <div>
       <STHeader>
@@ -38,7 +42,7 @@ const TodoList = () => {
           }}
           stroke='currentColor'
           fill='currentColor'
-          stroke-width='0'
+          strokeWidth='0'
           viewBox='0 0 20 20'
           height='24'
           width='24'
@@ -49,12 +53,27 @@ const TodoList = () => {
         <STHeaderTitle>3조의 투두리스트</STHeaderTitle>
         {/* 폼 태그 컴포넌츠 */}
       </STHeader>
-      {todos.length < 1 ? (
-        <div>
+      {todos.length > 0 ? ( todos.map(todo => <STContent key={todo.id} onClick={() => {
+            navigate(`/tododetail/${todo.id}`);
+          }}>
+      {/* 배열이 빈배열일 때를 판단할 때는 length를 사용한다. */}
+        <div><h3>{todo.title}</h3></div>
+        <div>작성자 : {todo.writer}</div>
+        <StDelButton type="button" onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        // 이벤트 버블링을 막는 법. 삭제, 여백 등 같이 있을 때 이벤트가 퍼질 때 막는 것
+                                                        const result = window.confirm("이 할일을 지울까요?");
+                                                        if (result) {
+                                                        return onDeleteHandler(todo.id);
+                                                        } else {
+                                                        return;
+                                                        }
+                                                        }}>삭제</StDelButton>
+        </STContent>)
+      ) : 
+        (<div>
           <h2>할일이 없네요</h2>
         </div>
-      ) : (
-        <div>테스트</div>
       )}
     </div>
   );
@@ -82,6 +101,25 @@ const STHeaderTitle = styled.div`
   text-decoration: none;
   outline: none;
   font-family: "Noto Sans KR", sans-serif;
+`;
+
+const STContent = styled.div`
+  border: 1px solid grey;
+  border-Radius : 25px;
+  margin : 10px;
+  padding : 20px;
+`
+
+const StDelButton = styled.button`
+  border: none;
+  background-color: red;
+  color : white;
+  height: 25px;
+  cursor: pointer;
+  width: 120px;
+  border-radius: 12px;
+  margin: 10px;
+
 `;
 
 export default TodoList;

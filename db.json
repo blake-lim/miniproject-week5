@@ -1,3 +1,80 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "id": 1,
+      "title": "1",
+      "body": "1",
+      "writer": "1"
+    },
+    {
+      "id": 2,
+      "title": "2",
+      "body": "2",
+      "writer": "2"
+    },
+    {
+      "id": 3,
+      "title": "3",
+      "body": "수정이 필요해?",
+      "writer": "3"
+    },
+    {
+      "id": 4,
+      "title": "4",
+      "body": "4",
+      "writer": "4"
+    }
+  ],
+  "comments": [
+    {
+      "body": "혹시 put 쓰면?",
+      "id": 1
+    },
+    {
+      "commentId": "3",
+      "id": 2,
+      "body": "수정",
+      "writer": "수정이"
+    },
+    {
+      "commentId": "3",
+      "id": 3,
+      "body": "수정이 필요해 에딧이 필요해 키가 필요해 삭제도 이 모양",
+      "writer": "에딧이"
+    },
+    {
+      "body": "putputput",
+      "id": 6
+    },
+    {
+      "commentId": "2",
+      "id": 7,
+      "body": "수정",
+      "writer": "이번은 왜"
+    },
+    {
+      "commentId": "1",
+      "id": 8,
+      "body": "키에러 왜나지",
+      "writer": "1번이"
+    },
+    {
+      "commentId": "1",
+      "id": 9,
+      "body": "궁금해",
+      "writer": "이상해"
+    },
+    {
+      "commentId": "2",
+      "id": 10,
+      "body": "왜 삭제됐지?",
+      "writer": "띠용"
+    },
+    {
+      "commentId": "2",
+      "id": 11,
+      "body": "수정이 되었나요?",
+      "writer": "헐?"
+    }
+  ]
 }

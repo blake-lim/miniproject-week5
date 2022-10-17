@@ -40,7 +40,6 @@ const Form = () => {
       ...todo,
       id: getMaxId() + 1,
       [name]: value,
-      editID: false,
       // [e.target.name]: e.target.value,
     });
   };
@@ -54,14 +53,21 @@ const Form = () => {
     ) {
       return alert("모든 항목을 입력해주세요.");
     }
-    axios.post("http://localhost:3001/todos", todo);
+    const obj = {
+      id:getMaxId()+1,
+      title: todo.title,
+      body: todo.body,
+      writer: todo.writer,
+      };
+      // addTodo 더할 때는 형태에 맞게 더하기
+      // try-catch문 필요 : 
+    axios.post("http://localhost:3001/todos", obj);
     dispatch(addTodo(todo));
 
     // 입력란 공백을 위한 공객체 생성
     setTodo({
       id: "",
       body: "",
-      editID: false,
     });
     //리스트 생성 시, 투두리스트 페이지로 리다이렉션
     navigate("/todolist");
@@ -70,31 +76,12 @@ const Form = () => {
   useEffect(() => {
     fetchTodos();
   }, []);
-
+ 
   return (
     <STContainer>
       <STWrapper>
         <STForm
           onSubmit={onSubmitHandler}
-          // onSubmit={(event) => {
-          //   event.preventDefault();
-          //   if (
-          //     todo.body.trim() === "" ||
-          //     todo.writer.trim() === "" ||
-          //     todo.title.trim() === ""
-          //   ) {
-          //     return alert("모든 항목을 입력해주세요.");
-          //   }
-          //   dispatch(addTodo(todo));
-          //   // 입력란 공백을 위한 공객체 생성
-          //   setTodo({
-          //     id: "",
-          //     body: "",
-          //     content: "",
-          //     isDone: false,
-          //     editID: false,
-          //   });
-          // }}
         >
           <STInputForm>
             <STWritter>작성자</STWritter>
