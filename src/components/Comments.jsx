@@ -85,9 +85,15 @@ const Comments = (props) => {
     body : ""
   });
   const onClickEditButtonHandler = async(id) => {
-    // 위에 변수가 선언되었는데 또 매개변수 넣을 필욘 없다.
   const res = await axios.patch(`http://localhost:3001/comments/${id}`, {body : editComment.body});
-  // res? : 요청에 대한 응답(response, html) : google.com 쳤을 떄 무슨 일 일어나는지 생각해보기.
+  setCommentList([{
+    ...commentList,
+    body : res.data.body
+  }])
+}
+
+const onClickDelButtonHandler = async(id) => {
+  const res = await axios.delete(`http://localhost:3001/comments/${id}`, {body : editComment.body});
   setCommentList([{
     ...commentList,
     body : res.data.body
@@ -121,9 +127,9 @@ const Comments = (props) => {
               });
             }}
           />
-              <StButton type="button" onClick={()=>{onClickEditButtonHandler(item.id)}} key={item.id}>수정</StButton>
+              <StButton type="button" onClick={()=>{onClickEditButtonHandler(item.id)}}>수정</StButton>
             </StEditContainer>) : null}
-      <button type="button">삭제</button>
+      <StEditButton type="button" onClick={()=>{onClickDelButtonHandler(item.id)}}>삭제</StEditButton>
       </div>
     </StComment>  
       ))}
