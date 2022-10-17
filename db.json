@@ -17,6 +17,12 @@
       "title": "3",
       "body": "수정이 필요해?",
       "writer": "3"
+    },
+    {
+      "id": 4,
+      "title": "4",
+      "body": "4",
+      "writer": "4"
     }
   ],
   "comments": [
@@ -49,7 +55,7 @@
     {
       "commentId": "2",
       "id": 7,
-      "body": "123123123",
+      "body": "수정",
       "writer": "이번은 왜"
     },
     {
@@ -73,8 +79,20 @@
     {
       "commentId": "2",
       "id": 11,
-      "body": "망할",
+      "body": "수정이 되었나요?",
       "writer": "헐?"
+    },
+    {
+      "commentId": "4",
+      "id": 13,
+      "body": "123123213213123123",
+      "writer": "수정이"
+    },
+    {
+      "commentId": "4",
+      "id": 14,
+      "body": "삼중삼중삼중",
+      "writer": "삼중이"
     }
   ]
 }

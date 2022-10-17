@@ -76,8 +76,9 @@ const Comments = (props) => {
 
   const [toggle, setToggle] = useState(false)
 
-  const editToggleHandler = () => {
-    toggle ? setToggle(false) : setToggle(true)
+  const editToggleHandler = (index) => {
+    setToggle(index)
+    // index로 값을 찾아서 넣는다.
     }
 
 
@@ -94,10 +95,6 @@ const Comments = (props) => {
 
 const onClickDelButtonHandler = async(id) => {
   const res = await axios.delete(`http://localhost:3001/comments/${id}`, {body : editComment.body});
-  setCommentList([{
-    ...commentList,
-    body : res.data.body
-  }])
 }
 
   return (
@@ -106,16 +103,18 @@ const onClickDelButtonHandler = async(id) => {
       <StWriterInput onChange={onChangeHandler} value={comment.writer || ""} name="writer" maxLength={5} placeholder="이름(5글자 이내)"></StWriterInput>
       <StBodyInput onChange={onChangeHandler} value={comment.body || ""} name="body" maxLength={100} placeholder="댓글을 추가하세요.(100자 이내)"></StBodyInput>
       <StButton type="submit" onClick={onSubmitHandler}>추가하기</StButton>
-      {commentList.map((item) => (
+      {commentList.map((item, index) => (
+      
       <StComment key={item.id}>
+        {/* 타입스크립트가 아닌 이상 문제가 없다. */}
       <p>작성자 : {item.writer}</p>
       <h3>내용 : {item.body}</h3>
       <div>
       <StEditButton type="button"
-              onClick={editToggleHandler}>
+              onClick={()=> {editToggleHandler(index)}}>
                 수정하시려면 눌러주세요
             </StEditButton>
-        {toggle ? (<StEditContainer>
+        {toggle === index ? (<StEditContainer>
         <input style={{width:300, height:200 }}
             type="text"
             maxLength={200}
@@ -129,9 +128,14 @@ const onClickDelButtonHandler = async(id) => {
           />
               <StEditButton type="button" onClick={()=>{onClickEditButtonHandler(item.id)}}>수정</StEditButton>
             </StEditContainer>) : null}
-      <StEditButton type="button" onClick={()=>{onClickDelButtonHandler(item.id)}}>삭제</StEditButton>
+            <StEditButton type="button" onClick={()=>{const result = window.confirm("이 댓글을 지울까요?");
+                                                        if (result) {
+                                                        return onClickDelButtonHandler(item.id);
+                                                        } else {
+                                                        return;
+                                                        }}}>삭제</StEditButton>
       </div>
-    </StComment>  
+    </StComment>
       ))}
     </div>
   </div>
