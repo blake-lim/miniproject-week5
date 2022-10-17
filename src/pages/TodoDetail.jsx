@@ -9,15 +9,43 @@ const TodoDetail = () => {
   // params로 받으면 String
   const navigate = useNavigate();
   const [detail, setDetail] = useState([]);
-
+  // 왜 초기값이 array인가? : map으로 돌린...
+  // 예전 todo find 생각하면...
+  
   const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
+    const { data } = await axios.get(`http://localhost:3001/todos/${id}`);
+    // api 사용해서 값 하나만 가져올 수 있다. find filter 필요 없다.
     setDetail(data);
   }
+  const [editTodo, setEditTodo] = useState({
+    body : ""
+  });
+
+const onClickEditButtonHandler = async() => {
+  // 위에 변수가 선언되었는데 또 매개변수 넣을 필욘 없다.
+const res = await axios.patch(`http://localhost:3001/todos/${id}`, {body : editTodo.body});
+// res? : 요청에 대한 응답(response, html) : google.com 쳤을 떄 무슨 일 일어나는지 생각해보기.
+setDetail({
+  ...detail,
+  body : res.data.body
+})
+
+// 패치로 변경 했다. 스테이트가 바뀌어야 하는데... 요청만 보내고 끝났다.
+// 통신 후 response를 받는다.
+// 수정하기를 누르면 json서버로 보내진다. 변한다. => useEffect가 필요하지 않을까?
+// 무슨 데이터가 오는지 받아봐야 한다.(리덕스와 엑시오스 유연하게 사용)
+// 수정하자마자 클라이언트 단에서 업데이트, 서버로 데이터 직접 보냄
+};
 useEffect(() => {
   fetchTodos();
 }, []);
 
+const [toggle, setToggle] = useState(false)
+
+const editToggleHandler = () => {
+  toggle ? setToggle(false) : setToggle(true)
+  }
+  // 데이터 직접 고치려면 axios 사용해야해서 낭비가 된다.
   return (<div><STHeader>
   <svg
     onClick={() => {
@@ -50,21 +78,35 @@ useEffect(() => {
               이전으로
             </StButton>
           </StDialogHeader>
-          {detail.map((item) => {if(item.id == id){
-            return(
-              // return을 꼭 해줘야한다.
-            <div key={item.id}>
-            <StTitle>{item.title}</StTitle>
-          <StBody>{item.body}</StBody>
-          </div>)}})}
-          
+          {
+            <div key={detail.id}>
+            <StTitle>{detail.title}</StTitle>
+          <StBody>{detail.body}</StBody>
+          </div>}
         </div>
+        <StEditButton type="button"
+              borderColor="#ddd" onClick={editToggleHandler}>
+                수정하시려면 눌러주세요
+            </StEditButton>
+        {toggle ? (<StEditContainer>
+        <textarea style={{width:300, height:200 }}
+            type="text"
+            maxLength={200}
+            placeholder="수정본문값 입력"
+            onChange={(event) => {
+              setEditTodo({
+                ...editTodo,
+                body: event.target.value,
+              });
+            }}
+          />
+        <StEditButton type="button"
+              borderColor="#ddd" onClick={onClickEditButtonHandler}>
+                본문수정
+            </StEditButton>
+            </StEditContainer>) : null}
       </StDialog>
     </StContainer>
-
-
-
-
 
 </div>)
 };
@@ -136,4 +178,19 @@ const StButton = styled.button`
   background-color: #fff;
   border-radius: 12px;
   cursor: pointer;
+`;
+
+const StEditContainer = styled.div`
+margin: auto;;
+`
+
+const StEditButton = styled.button`
+ border: 1px solid ${({ borderColor }) => borderColor};
+  height: 40px;
+  width: 120px;
+  background-color: #fff;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  margin : 0 auto 10px;
 `;

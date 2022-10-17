@@ -40,7 +40,6 @@ const Form = () => {
       ...todo,
       id: getMaxId() + 1,
       [name]: value,
-      editID: false,
       // [e.target.name]: e.target.value,
     });
   };
@@ -59,7 +58,6 @@ const Form = () => {
       title: todo.title,
       body: todo.body,
       writer: todo.writer,
-      editID: false
       };
       // addTodo 더할 때는 형태에 맞게 더하기
       // try-catch문 필요 : 
@@ -70,7 +68,6 @@ const Form = () => {
     setTodo({
       id: "",
       body: "",
-      editID: false,
     });
     //리스트 생성 시, 투두리스트 페이지로 리다이렉션
     navigate("/todolist");
