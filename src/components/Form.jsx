@@ -7,6 +7,7 @@ import { addTodo } from "../redux/modules/todosSlice";
 import axios from "axios"; // axios import 합니다.
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AlreadyHasActiveConnectionError } from "typeorm";
 
 // ⭐️필요 기능 구현 사항
 // 1)할일을 생성하면 자동으로 투두리스트 페이지로 리다이렉션(완료 - line 67)
@@ -29,10 +30,6 @@ const Form = () => {
     title: "",
     body: "",
   });
-  const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
-    setTodo(data);
-  };
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -48,11 +45,15 @@ const Form = () => {
     event.preventDefault();
     if (
       todo.body.trim() === "" ||
+      todo.body.trim() === undefined ||
       todo.writer.trim() === "" ||
-      todo.title.trim() === ""
+      todo.writer.trim() === undefined ||      
+      todo.title.trim() === "" ||
+      todo.title.trim() === undefined
     ) {
       return alert("모든 항목을 입력해주세요.");
     }
+    // 유지보수 디벨롭 : 쪼갠다면?
     const obj = {
       id:getMaxId()+1,
       title: todo.title,
@@ -72,11 +73,7 @@ const Form = () => {
     //리스트 생성 시, 투두리스트 페이지로 리다이렉션
     navigate("/todolist");
   };
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
- 
+ // useEffect가 fetchTodo가 받은 get 데이터를 (setTodo) 이상한 데이터를 받았기 때문. 수정완료
   return (
     <STContainer>
       <STWrapper>

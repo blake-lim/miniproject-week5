@@ -23,6 +23,12 @@
       "title": "4",
       "body": "4",
       "writer": "4"
+    },
+    {
+      "id": 5,
+      "title": "등록자",
+      "body": "입력 등록",
+      "writer": "입력자"
     }
   ],
   "comments": [
