@@ -15,8 +15,46 @@
     {
       "id": 3,
       "title": "3",
-      "body": "3",
+      "body": "44444",
       "writer": "3"
+    }
+  ],
+  "comments": [
+    {
+      "commentId": "1",
+      "id": 1,
+      "body": "테스트를 합니다",
+      "writer": "테스트"
+    },
+    {
+      "commentId": "3",
+      "id": 2,
+      "body": "3번이야",
+      "writer": "3번타자"
+    },
+    {
+      "commentId": "3",
+      "id": 3,
+      "body": "3번 다시야",
+      "writer": "3번 다시"
+    },
+    {
+      "commentId": "3",
+      "id": 4,
+      "body": "3번 꼭 해결하자",
+      "writer": "테스트하자"
+    },
+    {
+      "commentId": "2",
+      "id": 5,
+      "body": "2번에 넘어왔어요",
+      "writer": "2번타자"
+    },
+    {
+      "commentId": "2",
+      "id": 6,
+      "body": "2번 아직 잘 되네요",
+      "writer": "4번타자"
     }
   ]
 }

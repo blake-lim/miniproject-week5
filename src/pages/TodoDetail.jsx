@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios"; // axios import 합니다.
 import { useNavigate, useParams } from "react-router-dom";
- 
+import Comments from "../components/Comments";
+
 const TodoDetail = () => {
   const {id} = useParams();
   // params로 받으면 String
@@ -107,7 +108,7 @@ const editToggleHandler = () => {
             </StEditContainer>) : null}
       </StDialog>
     </StContainer>
-
+    <Comments id={id}/>
 </div>)
 };
 
