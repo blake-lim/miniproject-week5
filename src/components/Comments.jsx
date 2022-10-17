@@ -74,6 +74,26 @@ const Comments = (props) => {
     });  
   }
 
+  const [toggle, setToggle] = useState(false)
+
+  const editToggleHandler = () => {
+    toggle ? setToggle(false) : setToggle(true)
+    }
+
+
+  const [editComment, setEditComment] = useState({
+    body : ""
+  });
+  const onClickEditButtonHandler = async(id) => {
+    // 위에 변수가 선언되었는데 또 매개변수 넣을 필욘 없다.
+  const res = await axios.patch(`http://localhost:3001/comments/${id}`, {body : editComment.body});
+  // res? : 요청에 대한 응답(response, html) : google.com 쳤을 떄 무슨 일 일어나는지 생각해보기.
+  setCommentList([{
+    ...commentList,
+    body : res.data.body
+  }])
+}
+
   return (
   <div>
     <div>
@@ -84,6 +104,27 @@ const Comments = (props) => {
       <StComment key={item.id}>
       <p>작성자 : {item.writer}</p>
       <h3>내용 : {item.body}</h3>
+      <div>
+      <StEditButton type="button"
+              borderColor="#ddd" onClick={editToggleHandler}>
+                수정하시려면 눌러주세요
+            </StEditButton>
+        {toggle ? (<StEditContainer>
+        <input style={{width:300, height:200 }}
+            type="text"
+            maxLength={200}
+            placeholder="수정댓글 입력"
+            onChange={(event) => {
+              setEditComment({
+                ...editComment,
+                body: event.target.value,
+              });
+            }}
+          />
+              <StButton type="button" onClick={()=>{onClickEditButtonHandler(item.id)}} key={item.id}>수정</StButton>
+            </StEditContainer>) : null}
+      <button type="button">삭제</button>
+      </div>
     </StComment>  
       ))}
     </div>
@@ -122,3 +163,17 @@ cursor: pointer;
 width: 120px;
 border-radius: 12px;
 `
+const StEditContainer = styled.div`
+margin: auto;;
+`
+
+const StEditButton = styled.button`
+ border: 1px solid ${({ borderColor }) => borderColor};
+  height: 40px;
+  width: 120px;
+  background-color: #fff;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  margin : 0 auto 10px;
+`;
