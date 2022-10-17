@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { addComments } from "../redux/modules/commentsSlice";
 
 const Comments = (props) => {
+  // id는 상속받자
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments.comments)
 
@@ -31,7 +32,7 @@ const Comments = (props) => {
     const selCommentList = data.filter((val) => {
       return Number(props.id) === Number(val.commentId)})
       // detail id랑 axios id랑 비교
-      // 새로고침해야 값 나오는 것 해결? : 
+      // 새로고침해야 값 나오는 것 해결? : useEffect로 해결
       setCommentList(selCommentList);
   };
   useEffect(() => {
@@ -76,14 +77,14 @@ const Comments = (props) => {
   return (
   <div>
     <div>
-      <input onChange={onChangeHandler} value={comment.writer || ""} name="writer" maxLength={5} placeholder="이름(5글자 이내)"></input>
-      <input onChange={onChangeHandler} value={comment.body || ""} name="body" maxLength={100} placeholder="댓글을 추가하세요.(100자 이내)"></input>
-      <button type="submit" onClick={onSubmitHandler}>추가하기</button>
+      <StWriterInput onChange={onChangeHandler} value={comment.writer || ""} name="writer" maxLength={5} placeholder="이름(5글자 이내)"></StWriterInput>
+      <StBodyInput onChange={onChangeHandler} value={comment.body || ""} name="body" maxLength={100} placeholder="댓글을 추가하세요.(100자 이내)"></StBodyInput>
+      <StButton type="submit" onClick={onSubmitHandler}>추가하기</StButton>
       {commentList.map((item) => (
-      <div key={item.id}>
-      <p>{item.writer}</p>
-      <h3>{item.body}</h3>
-    </div>  
+      <StComment key={item.id}>
+      <p>작성자 : {item.writer}</p>
+      <h3>내용 : {item.body}</h3>
+    </StComment>  
       ))}
     </div>
   </div>
@@ -92,3 +93,32 @@ const Comments = (props) => {
 };
 
 export default Comments;
+
+const StComment = styled.div`
+border : 1px solid grey;
+border-radius : 15px;
+padding: 10px;
+margin-bottom : 10px;
+`
+
+const StWriterInput = styled.input`
+width : 100px;
+height : 20px;
+margin-bottom : 10px;
+margin-right : 20px;
+`
+
+const StBodyInput = styled.input`
+width : 500px;
+height : 20px;
+margin-bottom : 10px;
+`
+
+const StButton = styled.button`
+border: none;
+background-color: skyblue;
+height: 25px;
+cursor: pointer;
+width: 120px;
+border-radius: 12px;
+`
