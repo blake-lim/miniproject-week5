@@ -15,16 +15,14 @@
     {
       "id": 3,
       "title": "3",
-      "body": "44444",
+      "body": "수정이 필요해?",
       "writer": "3"
     }
   ],
   "comments": [
     {
-      "commentId": "1",
-      "id": 1,
-      "body": "테스트를 합니다",
-      "writer": "테스트"
+      "body": "혹시 put 쓰면?",
+      "id": 1
     },
     {
       "commentId": "3",
@@ -43,6 +41,40 @@
       "id": 4,
       "body": "삭제가 잘 되는데 왜...ㅠㅠ",
       "writer": "삭젱이"
+    },
+    {
+      "body": "putputput",
+      "id": 6
+    },
+    {
+      "commentId": "2",
+      "id": 7,
+      "body": "123123123",
+      "writer": "이번은 왜"
+    },
+    {
+      "commentId": "1",
+      "id": 8,
+      "body": "키에러 왜나지",
+      "writer": "1번이"
+    },
+    {
+      "commentId": "1",
+      "id": 9,
+      "body": "궁금해",
+      "writer": "이상해"
+    },
+    {
+      "commentId": "2",
+      "id": 10,
+      "body": "왜 삭제됐지?",
+      "writer": "띠용"
+    },
+    {
+      "commentId": "2",
+      "id": 11,
+      "body": "망할",
+      "writer": "헐?"
     }
   ]
 }

@@ -112,7 +112,7 @@ const onClickDelButtonHandler = async(id) => {
       <h3>내용 : {item.body}</h3>
       <div>
       <StEditButton type="button"
-              borderColor="#ddd" onClick={editToggleHandler}>
+              onClick={editToggleHandler}>
                 수정하시려면 눌러주세요
             </StEditButton>
         {toggle ? (<StEditContainer>
@@ -127,7 +127,7 @@ const onClickDelButtonHandler = async(id) => {
               });
             }}
           />
-              <StButton type="button" onClick={()=>{onClickEditButtonHandler(item.id)}}>수정</StButton>
+              <StEditButton type="button" onClick={()=>{onClickEditButtonHandler(item.id)}}>수정</StEditButton>
             </StEditContainer>) : null}
       <StEditButton type="button" onClick={()=>{onClickDelButtonHandler(item.id)}}>삭제</StEditButton>
       </div>

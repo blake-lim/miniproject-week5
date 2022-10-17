@@ -85,8 +85,7 @@ const editToggleHandler = () => {
           <StBody>{detail.body}</StBody>
           </div>}
         </div>
-        <StEditButton type="button"
-              borderColor="#ddd" onClick={editToggleHandler}>
+        <StEditButton type="button" onClick={editToggleHandler}>
                 수정하시려면 눌러주세요
             </StEditButton>
         {toggle ? (<StEditContainer>
