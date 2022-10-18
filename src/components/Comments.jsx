@@ -121,7 +121,7 @@ const Comments = (props) => {
         maxLength={100}
         placeholder='댓글을 추가하세요.(100자 이내)'
       ></StBodyInput>
-
+      {/* ... */}
       <Button type='submit' onClick={onSubmitHandler}>
         추가하기
       </Button>
