@@ -1,64 +1,143 @@
-# Hanghae99 9기 C반 3조
+# 항해 5주차 팀과제 1 : Redux, Toolkit 등 활용한 Todo List + 게시판 만들기
 
-**조원**
-<br>1)안다민
-<br>2)임효진
-<br>프로젝트 주소 :
 
-## <br></br>
+목차
 
-<img width="600" alt="스크린샷 2022-10-13 16 40 08" src="![image](https://user-images.githubusercontent.com/86904667/195763407-12d3aed3-5e32-45e9-9c65-60968a1880c0.png)">
+## 프로젝트 소개
 
-<img width="500" alt="스크린샷 2022-10-13 16 50 04" src="![image](https://user-images.githubusercontent.com/86904667/195763261-fe625ec7-dfaf-44d1-afd5-1dea13ef1a25.png)
-">
+<p align="justify">
+리액트 심화 및 리덕스 기본기를 바탕으로 한 TodoList 만들기<br>
+제한 및 공통 사항 : <br>
+  <li> 컴포넌트는 자유로 한다.</li>
+  <li> ducks 패턴 활용한다.</li>
+  <li> Redux를 활용한다.</li>
+</p>
 
-<h1>HangHae99 Bootcamp Team-task(week5)  : Todo List with React-Redux</b></h1>
-<h3>Technical Stack</h3>
-<h2>HTML / CSS / JavaScript / React / Redux-Toolkit / git / gitHub / Vercel / Styled-component / Axios / Custom hook </h2>
 
----
+## <a href="https://hanghea4w-damin0320.vercel.app/">실제 배포한 Redux TodoList</a>
 
-## Implementation Features
+<br>
 
-<strong>⭐️Feature 1:</strong> TodoList registration using input and button
-Manage two inputs at once to receive a value
-Capture and save the input value through the onChangeHandler
-Transfer and register the value by changing the state value through the action detected reducer sent by dispatch at the time of submission
+## 기술 스택
 
-<strong>⭐️Feature 2:</strong> Delete the created TodoList
-Using filter, compare id and todoListid that entered the parameter and delete values that are not the same
-Change state value through reducer
+HTML / CSS / JavaScript / React / Redux / Redux Toolkit / git / gitHub / heroku
 
-<strong>⭐️Feature 3:</strong> Complete and cancel TodoList
-Register and cancel after comparing with item.id and parameter id using map method
-Filter the value received by redux and turn it back to the map to divide Working / Done according to the isDone value
+<br>
 
-<strong>⭐️Feature 4:</strong> Implementing a detailed page through react-router-dom
-index.js, Router.jsx, app.js preset page movement settings
+## 구현 필수 요소 및 역할 분담
 
-Separate Detail.jsx file from Home.jsx to implement detailed page
+- **동적 라우팅을 사용**하세요.
 
-Moving Home Using Link Tags
+- 1개 이상의 `Custom Hook`을 구현하세요.
 
-Use Params to get the id value to move the page to /:id without loading the page
+- **Form에 유효성 검증 기능을 적용**하세요. *유효성 검증이란, 아래의 예시들을 의미합니다.*
+    - ex: 제목을 10글자 이상 기입하지 않으면, 글을 추가할 수 없도록 제한 → `Alert` 으로 안내
+    - ex: Form에서 모든 input에 값을 입력하지 않으면, 버튼이 비활성화
 
-After that, import the todos value from Detail.jsx to useSelector without using the reader and implement the detailed page contents using the find method
+- 버튼 **컴포넌트 1개로 모든 버튼을 구현**하세요. 모든 스타일과 기능을 버튼을 구현할 수 있는 **만능 버튼**을 만들어보는 것 입니다.
 
-## Reasons for dividing components
+- `development` 환경에서만 `redux devtool`이 활성화 되도록 처리합니다.
 
-Using Ducks Pattern to Divide<br/>
-<Strong>1. Component</Strong><br/>
-AddForm.jsx : Centralize input and add button management
-TodoListContainer.jsx : Unification of TodoList in general (frame, delete and complete/cancel, add list)
-I considered dividing the components, but I think it would be easier to manage them in a single unit, so I manage them together
+- 배포된 결과물에서는 `console.log()` 가 보이지 않도록 처리합니다.
 
-Header.jsx : For Header (Title)
-Layout.jsx : Match layout conditions
+- `.env` 를 이용해서 API 서버의 URL 코드상에서 숨기도록 처리합니다.
 
-<Strong>2. Pages</Strong><br/>
-Home.jsx : Design considering page movement instead of App.js (App.js can only load Router)
-Detail.jsx : Detail page. It's a pattern managed separately by url, so it's managed separately
+## 구현 기능
 
-<Strong>3. redux & Router</Strong><br/>
-modules>todos.js: Patterns for centralizing action creator, reducer management
-shared>Router.jsx : Pattern management by setting for moving the detailed page of Home according to the reaction-router-dom method
+
+### 기능 1 : react- router-dom 통한 페이지 별 관리
+
+- home화면, 할일 기록하기 화면, TodoList 확인, 상세페이지 등 react-router-dom으로 관리(url params)
+
+- router에서 url 상세 관리
+
+- navigate로 페이지 이동
+
+<br>
+
+### 기능 2 : TodoList CRUD
+
+- 게시물인 TodoList의 생성, 읽기, 수정, 삭제 기능 모두 구현
+
+- 생성은 Reducer 이용한 action Dispatch -> 이후 읽기는 map을 활용한 객체 읽기
+
+- 수정은 상세 페이지에서 관리. axios.patch를 통해 비동기로 가져와 데이터 값 직접 변경
+
+- 토글 기능 활용한 수정 창 숨기기
+
+- 삭제는 디테일 이전 TodoList에서 axios.get으로 가져와 axios.delete를 통해 비동기로 가져와 삭제
+
+<br>
+
+### 기능 3 : 댓글 CRUD
+
+- 게시물의 댓글의 생성, 읽기, 수정, 삭제 기능 모두 구현
+
+- 생성은 Reducer 이용한 새로운 commentsSlice 파일 만들어서 action Dispatch -> 이후 읽기는 map을 활용한 객체 읽기. 필터링 통해 부여해준 게시물과 연관된 id로 걸른 후모든 게시물에서 같은 댓글이 보이지 않게함.
+
+- 수정은 토글 식으로 관리. axios.patch를 통해 비동기로 가져와 데이터 값 직접 변경
+
+- 삭제는 axios.get으로 가져오는데 필터링 통해 부여해준 게시물과 연관된 id로 걸른 후 axios.delete를 통해 비동기로 가져와 삭제하여 각 게시물 당 특정 댓글만 삭제
+<br>
+
+### 기능 4 : 필수 구현 사항
+
+- 동적 라우팅을 사용 (공통) -> react-router-dom 활용
+
+- 1개 이상의 `Custom Hook`을 구현 (효진) -> todoInput에서 구현
+
+- Form에 유효성 검증 기능을 적용 (다민) -> 게시물 Todo 입력 시 전체 입력이 안 되면 동작이 안 되게 alert 동작
+
+- 버튼 컴포넌트 1개로 모든 버튼을 구현 (다민) -> button.js로 통일하여 버튼 동작
+
+- `development` 환경에서만 `redux devtool`이 활성화 (효진) -> 배포 시 적용
+
+- 배포된 결과물에서는 `console.log()` 가 보이지 않도록 처리 (공통) -> 코드 확인 완료
+
+- `.env` 를 이용해서 API 서버의 URL 코드상에서 숨기도록 처리 (다민) -> env 로 URL 코드상에서 모두 가림
+
+<br>
+
+## 컴포넌트와 나눈 이유
+
+### Ducks 패턴 활용 통한 컴포넌트 나누기
+
+### 1. Components
+- Comments.jsx : 댓글 관리
+- Form.jsx : 게시물 업로드 관리
+- Header.jsx & Layout.jsx : 홈페이지 전반적 레이아웃
+
+<br>
+
+### 2. Pages
+- AddTodo.jsx : 게시물 업로드 페이지 관리
+- Home.jsx : 홈페이지
+- TodoDetail.jsx : 게시물 상세 페이지
+- TodoList.jsx : 게시물 상세 가기 전 페이지(게시묾 모음)
+
+
+<br>
+
+### 3. redux & Router & hooks
+- modules > todosSlice.js : todo의 Reducer 관리
+- modules > CommentsSlice.js : comment의 Reducer 관리
+- shared > Router.jsx : react-router-dom 방식에 따라 Home, 상세페이지 이동 위한 설정으로 패턴 관리
+- hooks > useInput.js : useInput이라는 커스텀훅을 이용한 todoList input하기.
+
+
+<br>
+
+### 4. hook & elements
+
+
+<br>
+
+<p align="justify">
+
+</p>
+
+<br>
+
+## 라이센스
+
+Copyright 2022. hang-hae99 9th W5 team 3. all rights reserved.
