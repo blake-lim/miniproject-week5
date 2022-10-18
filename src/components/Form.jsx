@@ -7,12 +7,18 @@ import { addTodo } from "../redux/modules/todosSlice";
 import axios from "axios"; // axios import 합니다.
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useInput from "../hooks/useInput";
 
 // ⭐️필요 기능 구현 사항
 // 1)할일을 생성하면 자동으로 투두리스트 페이지로 리다이렉션(완료 - line 67)
 // 2)할일을 생성하지 않고 투두리스트 페이지 진입 시, 할일이 없네요 메시지 표시
 
 const Form = () => {
+  //커스텀 훅
+  const [title, onChangeTitleHandler] = useInput();
+  const [body, onChangeBodyHandler] = useInput();
+  const [writer, onChangeWriterHandler] = useInput();
+
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos.todos);
   const navigate = useNavigate();
@@ -29,11 +35,12 @@ const Form = () => {
     title: "",
     body: "",
   });
-  const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
-    setTodo(data);
-  };
+  // const fetchTodos = async () => {
+  //   const { data } = await axios.get("http://localhost:3001/todos");
+  //   setTodo(data);
+  // };
 
+  //기존 방식
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setTodo({
@@ -46,65 +53,96 @@ const Form = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    // 기존 처리 방식
+    // if (
+    //   todo.body.trim() === "" ||
+    //   todo.writer.trim() === "" ||
+    //   todo.title.trim() === ""
+    // ) {
+    //   return alert("모든 항목을 입력해주세요.");
+    // }
+
+    //새로운 방식
     if (
-      todo.body.trim() === "" ||
-      todo.writer.trim() === "" ||
-      todo.title.trim() === ""
+      title.title.trim() === "" ||
+      title.title.trim() === undefined ||
+      body.body.trim() === "" ||
+      body.body.trim() === undefined ||
+      writer.writer.trim() === "" ||
+      writer.writer.trim() === undefined
     ) {
       return alert("모든 항목을 입력해주세요.");
     }
+    //기존방식
+    // const obj = {
+    //   id: getMaxId() + 1,
+    //   title: todo.title,
+    //   body: todo.body,
+    //   writer: todo.writer,
+    // };
+
+    //새로운방식
     const obj = {
-      id:getMaxId()+1,
-      title: todo.title,
-      body: todo.body,
-      writer: todo.writer,
-      };
-      // addTodo 더할 때는 형태에 맞게 더하기
-      // try-catch문 필요 : 
+      id: getMaxId() + 1,
+      title: title.title,
+      body: body.body,
+      writer: writer.writer,
+    };
+    console.log("obj는", obj);
+    // addTodo 더할 때는 형태에 맞게 더하기
+    // try-catch문 필요 :
     axios.post("http://localhost:3001/todos", obj);
     dispatch(addTodo(todo));
 
-    // 입력란 공백을 위한 공객체 생성
-    setTodo({
-      id: "",
-      body: "",
-    });
+    if (todo.writer.trim() !== "" || todo.body.trim() == "")
+      // 입력란 공백을 위한 공객체 생성
+      setTodo({
+        id: "",
+        body: "",
+      });
     //리스트 생성 시, 투두리스트 페이지로 리다이렉션
     navigate("/todolist");
   };
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
- 
+  // useEffect(() => {
+  //   fetchTodos();
+  // }, []);
+
   return (
     <STContainer>
       <STWrapper>
-        <STForm
-          onSubmit={onSubmitHandler}
-        >
+        <STForm onSubmit={onSubmitHandler}>
           <STInputForm>
             <STWritter>작성자</STWritter>
             <STInput
-              onChange={onChangeHandler}
-              value={todo.writer || ""}
+              // onChange={onChangeHandler}
+              // value={todo.writer || ""}
+              // name='writer'
               name='writer'
+              value={writer.writer || ""}
+              onChange={onChangeWriterHandler}
               maxLength={5}
               placeholder='작성자의 이름을 입력해주세요.(5자 이내)'
             ></STInput>
             <STWritter>제목</STWritter>
             <STInput
-              onChange={onChangeHandler}
-              value={todo.title || ""}
+              // onChange={onChangeHandler}
+              // value={todo.title || ""}
+              // name='title'
               name='title'
+              value={title.title || ""}
+              onChange={onChangeTitleHandler}
               maxLength={50}
               placeholder='제목을 입력해주세요.(50자 이내)'
             ></STInput>
             <STWritter>내용</STWritter>
             <STTextArea
-              onChange={onChangeHandler}
-              value={todo.body || ""}
+              // onChange={onChangeHandler}
+              // value={todo.body || ""}
+              // name='body'
               name='body'
+              value={body.body || ""}
+              onChange={onChangeBodyHandler}
               maxLength={200}
               placeholder='내용을 입력해주세요.(200자 이내)'
             ></STTextArea>

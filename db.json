@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "1",
-      "body": "1",
+      "body": "수정수정\n",
       "writer": "1"
     },
     {
@@ -20,9 +20,9 @@
     },
     {
       "id": 4,
-      "title": "4",
-      "body": "4",
-      "writer": "4"
+      "title": "신이시여",
+      "body": "리액트신\n",
+      "writer": "제발 "
     }
   ],
   "comments": [
@@ -43,38 +43,10 @@
       "writer": "에딧이"
     },
     {
-      "body": "putputput",
-      "id": 6
-    },
-    {
-      "commentId": "2",
-      "id": 7,
-      "body": "수정",
-      "writer": "이번은 왜"
-    },
-    {
-      "commentId": "1",
-      "id": 8,
-      "body": "키에러 왜나지",
-      "writer": "1번이"
-    },
-    {
-      "commentId": "1",
-      "id": 9,
-      "body": "궁금해",
-      "writer": "이상해"
-    },
-    {
-      "commentId": "2",
-      "id": 10,
-      "body": "왜 삭제됐지?",
-      "writer": "띠용"
-    },
-    {
-      "commentId": "2",
-      "id": 11,
-      "body": "수정이 되었나요?",
-      "writer": "헐?"
+      "commentId": "4",
+      "id": 4,
+      "body": "잘되네",
+      "writer": "잘되나"
     }
   ]
 }
