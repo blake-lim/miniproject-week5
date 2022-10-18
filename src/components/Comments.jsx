@@ -170,8 +170,7 @@ const Comments = (props) => {
               onClick={() => {
                 const result = window.confirm("이 댓글을 지울까요?");
                 if (result) {
-                  return;
-                  onClickDelButtonHandler(item.id);
+                  return onClickDelButtonHandler(item.id);
                 } else {
                   return;
                 }

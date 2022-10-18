@@ -26,21 +26,9 @@
     },
     {
       "commentId": "3",
-      "id": 2,
-      "body": "수정",
-      "writer": "수정이"
-    },
-    {
-      "commentId": "3",
       "id": 3,
       "body": "수정완료",
       "writer": "최종수정"
-    },
-    {
-      "commentId": "2",
-      "id": 4,
-      "body": "댓글 수정",
-      "writer": "개별"
     }
   ]
 }
