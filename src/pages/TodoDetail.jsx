@@ -13,9 +13,11 @@ const TodoDetail = () => {
   const [detail, setDetail] = useState([]);
   // 왜 초기값이 array인가? : map으로 돌린...
   // 예전 todo find 생각하면...
-  
+  const params = {
+    key : process.env.REACT_APP_TODO
+  }
   const fetchTodos = async () => {
-    const { data } = await axios.get(`http://localhost:3001/todos/${id}`);
+    const { data } = await axios.get(`${params.key}/${id}`);
     // api 사용해서 값 하나만 가져올 수 있다. find filter 필요 없다.
     setDetail(data);
   }
@@ -25,7 +27,7 @@ const TodoDetail = () => {
 
 const onClickEditButtonHandler = async() => {
   // 위에 변수가 선언되었는데 또 매개변수 넣을 필욘 없다.
-const res = await axios.patch(`http://localhost:3001/todos/${id}`, {body : editTodo.body});
+const res = await axios.patch(`${params.key}/${id}`, {body : editTodo.body});
 // res? : 요청에 대한 응답(response, html) : google.com 쳤을 떄 무슨 일 일어나는지 생각해보기.
 setDetail({
   ...detail,

@@ -49,6 +49,9 @@ const Form = () => {
       return alert("모든 항목을 입력해주세요.");
     }
     // 유지보수 디벨롭 : 쪼갠다면?
+    const params = {
+      key : process.env.REACT_APP_TODO
+    }
     const obj = {
       id:getMaxId()+1,
       title: todo.title,
@@ -57,7 +60,7 @@ const Form = () => {
       };
       // addTodo 더할 때는 형태에 맞게 더하기
       // try-catch문 필요 : 
-    axios.post("http://localhost:3001/todos", obj);
+    axios.post(params.key, obj);
     dispatch(addTodo(todo));
 
     // 입력란 공백을 위한 공객체 생성

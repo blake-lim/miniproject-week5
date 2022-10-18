@@ -27,9 +27,12 @@ const Comments = (props) => {
     writer : "",
     body : ""
   })
+  const params = {
+    key : process.env.REACT_APP_COMMENT
+  }
   const [commentList, setCommentList] = useState([])
     const fetchComments = async () => {
-    const { data } = await axios.get("http://localhost:3001/comments");
+    const { data } = await axios.get(params.key);
     const selCommentList = data.filter((val) => {
       return Number(props.id) === Number(val.commentId)})
       // detail id랑 axios id랑 비교
@@ -65,7 +68,7 @@ const Comments = (props) => {
       };
       // addTodo 더할 때는 형태에 맞게 더하기
       // try-catch문 필요 : 
-    axios.post("http://localhost:3001/comments", obj);
+    axios.post(params.key, obj);
     dispatch(addComments(comment));
 
     // 입력란 공백을 위한 공객체 생성
@@ -87,7 +90,7 @@ const Comments = (props) => {
     body : ""
   });
   const onClickEditButtonHandler = async(id) => {
-  const res = await axios.patch(`http://localhost:3001/comments/${id}`, {body : editComment.body});
+  const res = await axios.patch(`${params.key}/${id}`, {body : editComment.body});
   setCommentList([{
     ...commentList,
     body : res.data.body
@@ -95,7 +98,7 @@ const Comments = (props) => {
 }
 
 const onClickDelButtonHandler = async(id) => {
-  const res = await axios.delete(`http://localhost:3001/comments/${id}`, {body : editComment.body});
+  const res = await axios.delete(`${params.key}/${id}`, {body : editComment.body});
 }
 
   return (
