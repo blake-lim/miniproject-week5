@@ -16,6 +16,7 @@ const TodoDetail = () => {
   const params = {
     key: process.env.REACT_APP_TODO,
   };
+
   const fetchTodos = async () => {
     const { data } = await axios.get(`${params.key}/${id}`);
     // api 사용해서 값 하나만 가져올 수 있다. find filter 필요 없다.
