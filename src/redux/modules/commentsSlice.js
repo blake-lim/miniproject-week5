@@ -1,6 +1,7 @@
 // src/redux/modules/CommentsSlice.js
 
 import { createSlice } from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
   comments: [],
@@ -11,7 +12,8 @@ const commentsSlice = createSlice({
   initialState,
   reducers: {
     addComments: (state, action) => {
-      state.comments = [...state.comments, { ...action.payload }];
+      // state.comments = [...state.comments, { ...action.payload }];
+      state.comments.push(action.payload);
     },
   },
 });

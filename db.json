@@ -3,44 +3,20 @@
     {
       "id": 1,
       "title": "1",
-      "body": "1",
+      "body": "수정수정\n",
       "writer": "1"
     },
     {
       "id": 2,
       "title": "2",
-      "body": "2",
+      "body": "개별수정",
       "writer": "2"
     },
     {
       "id": 3,
-      "title": "3",
-      "body": "수정이 필요해?",
-      "writer": "3"
-    },
-    {
-      "id": 4,
-      "title": "4",
-      "body": "4",
-      "writer": "4"
-    },
-    {
-      "id": 5,
-      "title": "123123",
-      "body": "123123123123213",
-      "writer": "12312"
-    },
-    {
-      "id": 7,
-      "title": "env",
-      "body": "env",
-      "writer": "env"
-    },
-    {
-      "id": 8,
-      "title": "env222222",
-      "body": "수정할거야!!!@#@#@#!",
-      "writer": "env2"
+      "title": "최종",
+      "body": "최종 수정",
+      "writer": "최종"
     }
   ],
   "comments": [
@@ -57,36 +33,14 @@
     {
       "commentId": "3",
       "id": 3,
-      "body": "수정이 필요해 에딧이 필요해 키가 필요해 삭제도 이 모양",
-      "writer": "에딧이"
-    },
-    {
-      "body": "putputput",
-      "id": 6
+      "body": "수정완료",
+      "writer": "최종수정"
     },
     {
       "commentId": "2",
-      "id": 7,
-      "body": "수정",
-      "writer": "이번은 왜"
-    },
-    {
-      "commentId": "1",
-      "id": 9,
-      "body": "궁금해",
-      "writer": "이상해"
-    },
-    {
-      "commentId": "2",
-      "id": 10,
-      "body": "왜 삭제됐지?",
-      "writer": "띠용"
-    },
-    {
-      "commentId": "2",
-      "id": 11,
-      "body": "수정이 되었나요?",
-      "writer": "헐?"
+      "id": 4,
+      "body": "댓글 수정",
+      "writer": "개별"
     }
   ]
 }
