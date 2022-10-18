@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "axios"; // axios import 합니다.
 import { useEffect } from "react";
 import { addComments } from "../redux/modules/commentsSlice";
+import Button from "../elements/Button"
 
 const Comments = (props) => {
   // id는 상속받자
@@ -102,7 +103,7 @@ const onClickDelButtonHandler = async(id) => {
     <div>
       <StWriterInput onChange={onChangeHandler} value={comment.writer || ""} name="writer" maxLength={5} placeholder="이름(5글자 이내)"></StWriterInput>
       <StBodyInput onChange={onChangeHandler} value={comment.body || ""} name="body" maxLength={100} placeholder="댓글을 추가하세요.(100자 이내)"></StBodyInput>
-      <StButton type="submit" onClick={onSubmitHandler}>추가하기</StButton>
+      <Button type="submit" onClick={onSubmitHandler}>추가하기</Button>
       {commentList.map((item, index) => (
       
       <StComment key={item.id}>
@@ -110,10 +111,10 @@ const onClickDelButtonHandler = async(id) => {
       <p>작성자 : {item.writer}</p>
       <h3>내용 : {item.body}</h3>
       <div>
-      <StEditButton type="button"
+      <Button type="button"
               onClick={()=> {editToggleHandler(index)}}>
                 수정하시려면 눌러주세요
-            </StEditButton>
+            </Button>
         {toggle === index ? (<StEditContainer>
         <input style={{width:300, height:200 }}
             type="text"
@@ -126,14 +127,14 @@ const onClickDelButtonHandler = async(id) => {
               });
             }}
           />
-              <StEditButton type="button" onClick={()=>{onClickEditButtonHandler(item.id)}}>수정</StEditButton>
+              <Button type="button" onClick={()=>{onClickEditButtonHandler(item.id)}}>수정</Button>
             </StEditContainer>) : null}
-            <StEditButton type="button" onClick={()=>{const result = window.confirm("이 댓글을 지울까요?");
+            <Button type="button" onClick={()=>{const result = window.confirm("이 댓글을 지울까요?");
                                                         if (result) {
                                                         return onClickDelButtonHandler(item.id);
                                                         } else {
                                                         return;
-                                                        }}}>삭제</StEditButton>
+                                                        }}}>삭제</Button>
       </div>
     </StComment>
       ))}
@@ -165,25 +166,25 @@ height : 20px;
 margin-bottom : 10px;
 `
 
-const StButton = styled.button`
-border: none;
-background-color: skyblue;
-height: 25px;
-cursor: pointer;
-width: 120px;
-border-radius: 12px;
-`
+// const StButton = styled.button`
+// border: none;
+// background-color: skyblue;
+// height: 25px;
+// cursor: pointer;
+// width: 120px;
+// border-radius: 12px;
+// `
 const StEditContainer = styled.div`
 margin: auto;;
 `
 
-const StEditButton = styled.button`
- border: 1px solid ${({ borderColor }) => borderColor};
-  height: 40px;
-  width: 120px;
-  background-color: #fff;
-  border-radius: 12px;
-  cursor: pointer;
-  text-align: center;
-  margin : 0 auto 10px;
-`;
+// const StEditButton = styled.button`
+//  border: 1px solid ${({ borderColor }) => borderColor};
+//   height: 40px;
+//   width: 120px;
+//   background-color: #fff;
+//   border-radius: 12px;
+//   cursor: pointer;
+//   text-align: center;
+//   margin : 0 auto 10px;
+// `;

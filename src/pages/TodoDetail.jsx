@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios"; // axios import 합니다.
 import { useNavigate, useParams } from "react-router-dom";
 import Comments from "../components/Comments";
+import Button from "../elements/Button"
 
 const TodoDetail = () => {
   const {id} = useParams();
@@ -70,14 +71,14 @@ const editToggleHandler = () => {
         <div>
           <StDialogHeader >
             <div>ID :{id}</div>
-            <StButton
+            <Button
               borderColor="#ddd"
               onClick={() => {
                 navigate("/todolist");
               }}
             >
               이전으로
-            </StButton>
+            </Button>
           </StDialogHeader>
           {
             <div key={detail.id}>
@@ -85,9 +86,9 @@ const editToggleHandler = () => {
           <StBody>{detail.body}</StBody>
           </div>}
         </div>
-        <StEditButton type="button" onClick={editToggleHandler}>
+        <Button type="button" onClick={editToggleHandler}>
                 수정하시려면 눌러주세요
-            </StEditButton>
+            </Button>
         {toggle ? (<StEditContainer>
         <textarea style={{width:300, height:200 }}
             type="text"
@@ -100,10 +101,10 @@ const editToggleHandler = () => {
               });
             }}
           />
-        <StEditButton type="button"
+        <Button type="button"
               borderColor="#ddd" onClick={onClickEditButtonHandler}>
                 본문수정
-            </StEditButton>
+            </Button>
             </StEditContainer>) : null}
       </StDialog>
     </StContainer>
@@ -171,26 +172,26 @@ const StBody = styled.main`
   padding: 0 24px;
 `;
 
-const StButton = styled.button`
-  border: 1px solid ${({ borderColor }) => borderColor};
-  height: 40px;
-  width: 120px;
-  background-color: #fff;
-  border-radius: 12px;
-  cursor: pointer;
-`;
+// const StButton = styled.button`
+//   border: 1px solid ${({ borderColor }) => borderColor};
+//   height: 40px;
+//   width: 120px;
+//   background-color: #fff;
+//   border-radius: 12px;
+//   cursor: pointer;
+// `;
 
 const StEditContainer = styled.div`
 margin: auto;;
 `
 
-const StEditButton = styled.button`
- border: 1px solid ${({ borderColor }) => borderColor};
-  height: 40px;
-  width: 120px;
-  background-color: #fff;
-  border-radius: 12px;
-  cursor: pointer;
-  text-align: center;
-  margin : 0 auto 10px;
-`;
+// const StEditButton = styled.button`
+//  border: 1px solid ${({ borderColor }) => borderColor};
+//   height: 40px;
+//   width: 120px;
+//   background-color: #fff;
+//   border-radius: 12px;
+//   cursor: pointer;
+//   text-align: center;
+//   margin : 0 auto 10px;
+// `;

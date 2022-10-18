@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
+import Button from "../elements/Button"
 
 const TodoList = () => {
   // const dispatch = useDispatch();
@@ -59,7 +60,7 @@ useEffect(() => {
       {/* 배열이 빈배열일 때를 판단할 때는 length를 사용한다. */}
         <div><h3>{todo.title}</h3></div>
         <div>작성자 : {todo.writer}</div>
-        <StDelButton type="button" onClick={(event) => {
+        <Button backgroundColor="red" type="button" onClick={(event) => {
                                                         event.stopPropagation();
                                                         // 이벤트 버블링을 막는 법. 삭제, 여백 등 같이 있을 때 이벤트가 퍼질 때 막는 것
                                                         const result = window.confirm("이 할일을 지울까요?");
@@ -68,7 +69,7 @@ useEffect(() => {
                                                         } else {
                                                         return;
                                                         }
-                                                        }}>삭제</StDelButton>
+                                                        }}>삭제</Button>
         </STContent>)
       ) : 
         (<div>
@@ -110,16 +111,15 @@ const STContent = styled.div`
   padding : 20px;
 `
 
-const StDelButton = styled.button`
-  border: none;
-  background-color: red;
-  color : white;
-  height: 25px;
-  cursor: pointer;
-  width: 120px;
-  border-radius: 12px;
-  margin: 10px;
-
-`;
+// const StDelButton = styled.button`
+//   border: none;
+//   background-color: red;
+//   color : white;
+//   height: 25px;
+//   cursor: pointer;
+//   width: 120px;
+//   border-radius: 12px;
+//   margin: 10px;
+// `;
 
 export default TodoList;
