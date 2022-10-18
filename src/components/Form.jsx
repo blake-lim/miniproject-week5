@@ -5,12 +5,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { addTodo } from "../redux/modules/todosSlice";
 import axios from "axios"; // axios import 합니다.
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-// ⭐️필요 기능 구현 사항
-// 1)할일을 생성하면 자동으로 투두리스트 페이지로 리다이렉션(완료 - line 67)
-// 2)할일을 생성하지 않고 투두리스트 페이지 진입 시, 할일이 없네요 메시지 표시
+import Button from "../elements/Button"
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -29,10 +25,6 @@ const Form = () => {
     title: "",
     body: "",
   });
-  const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
-    setTodo(data);
-  };
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -48,10 +40,17 @@ const Form = () => {
     event.preventDefault();
     if (
       todo.body.trim() === "" ||
+      todo.body.trim() === undefined ||
       todo.writer.trim() === "" ||
-      todo.title.trim() === ""
+      todo.writer.trim() === undefined ||      
+      todo.title.trim() === "" ||
+      todo.title.trim() === undefined
     ) {
       return alert("모든 항목을 입력해주세요.");
+    }
+    // 유지보수 디벨롭 : 쪼갠다면?
+    const params = {
+      key : process.env.REACT_APP_TODO
     }
     const obj = {
       id:getMaxId()+1,
@@ -61,7 +60,7 @@ const Form = () => {
       };
       // addTodo 더할 때는 형태에 맞게 더하기
       // try-catch문 필요 : 
-    axios.post("http://localhost:3001/todos", obj);
+    axios.post(params.key, obj);
     dispatch(addTodo(todo));
 
     // 입력란 공백을 위한 공객체 생성
@@ -72,11 +71,7 @@ const Form = () => {
     //리스트 생성 시, 투두리스트 페이지로 리다이렉션
     navigate("/todolist");
   };
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
- 
+ // useEffect가 fetchTodo가 받은 get 데이터를 (setTodo) 이상한 데이터를 받았기 때문. 수정완료
   return (
     <STContainer>
       <STWrapper>
@@ -108,7 +103,7 @@ const Form = () => {
               maxLength={200}
               placeholder='내용을 입력해주세요.(200자 이내)'
             ></STTextArea>
-            <STSubmitBtn>추가하기</STSubmitBtn>
+            <Button size="large">추가하기</Button>
           </STInputForm>
         </STForm>
       </STWrapper>
@@ -166,19 +161,19 @@ const STTextArea = styled.textarea`
   font-size: 14px;
 `;
 
-const STSubmitBtn = styled.button`
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  flex-direction: row;
-  border: 1px solid rgb(238, 238, 238);
-  background-color: rgb(255, 255, 255);
-  height: 46px;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 100%;
-`;
+// const STSubmitBtn = styled.button`
+//   display: flex;
+//   -webkit-box-align: center;
+//   align-items: center;
+//   -webkit-box-pack: center;
+//   justify-content: center;
+//   flex-direction: row;
+//   border: 1px solid rgb(238, 238, 238);
+//   background-color: rgb(255, 255, 255);
+//   height: 46px;
+//   border-radius: 8px;
+//   cursor: pointer;
+//   width: 100%;
+// `;
 
 export default Form;

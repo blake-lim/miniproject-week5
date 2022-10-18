@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "axios"; // axios import 합니다.
 import { useEffect } from "react";
 import { addComments } from "../redux/modules/commentsSlice";
+import Button from "../elements/Button"
 
 const Comments = (props) => {
   // id는 상속받자
@@ -26,9 +27,12 @@ const Comments = (props) => {
     writer : "",
     body : ""
   })
+  const params = {
+    key : process.env.REACT_APP_COMMENT
+  }
   const [commentList, setCommentList] = useState([])
     const fetchComments = async () => {
-    const { data } = await axios.get("http://localhost:3001/comments");
+    const { data } = await axios.get(params.key);
     const selCommentList = data.filter((val) => {
       return Number(props.id) === Number(val.commentId)})
       // detail id랑 axios id랑 비교
@@ -64,7 +68,7 @@ const Comments = (props) => {
       };
       // addTodo 더할 때는 형태에 맞게 더하기
       // try-catch문 필요 : 
-    axios.post("http://localhost:3001/comments", obj);
+    axios.post(params.key, obj);
     dispatch(addComments(comment));
 
     // 입력란 공백을 위한 공객체 생성
@@ -86,7 +90,7 @@ const Comments = (props) => {
     body : ""
   });
   const onClickEditButtonHandler = async(id) => {
-  const res = await axios.patch(`http://localhost:3001/comments/${id}`, {body : editComment.body});
+  const res = await axios.patch(`${params.key}/${id}`, {body : editComment.body});
   setCommentList([{
     ...commentList,
     body : res.data.body
@@ -94,7 +98,7 @@ const Comments = (props) => {
 }
 
 const onClickDelButtonHandler = async(id) => {
-  const res = await axios.delete(`http://localhost:3001/comments/${id}`, {body : editComment.body});
+  const res = await axios.delete(`${params.key}/${id}`, {body : editComment.body});
 }
 
   return (
@@ -102,7 +106,7 @@ const onClickDelButtonHandler = async(id) => {
     <div>
       <StWriterInput onChange={onChangeHandler} value={comment.writer || ""} name="writer" maxLength={5} placeholder="이름(5글자 이내)"></StWriterInput>
       <StBodyInput onChange={onChangeHandler} value={comment.body || ""} name="body" maxLength={100} placeholder="댓글을 추가하세요.(100자 이내)"></StBodyInput>
-      <StButton type="submit" onClick={onSubmitHandler}>추가하기</StButton>
+      <Button type="submit" onClick={onSubmitHandler}>추가하기</Button>
       {commentList.map((item, index) => (
       
       <StComment key={item.id}>
@@ -110,10 +114,10 @@ const onClickDelButtonHandler = async(id) => {
       <p>작성자 : {item.writer}</p>
       <h3>내용 : {item.body}</h3>
       <div>
-      <StEditButton type="button"
+      <Button type="button"
               onClick={()=> {editToggleHandler(index)}}>
                 수정하시려면 눌러주세요
-            </StEditButton>
+            </Button>
         {toggle === index ? (<StEditContainer>
         <input style={{width:300, height:200 }}
             type="text"
@@ -126,14 +130,14 @@ const onClickDelButtonHandler = async(id) => {
               });
             }}
           />
-              <StEditButton type="button" onClick={()=>{onClickEditButtonHandler(item.id)}}>수정</StEditButton>
+              <Button type="button" onClick={()=>{onClickEditButtonHandler(item.id)}}>수정</Button>
             </StEditContainer>) : null}
-            <StEditButton type="button" onClick={()=>{const result = window.confirm("이 댓글을 지울까요?");
+            <Button type="button" onClick={()=>{const result = window.confirm("이 댓글을 지울까요?");
                                                         if (result) {
                                                         return onClickDelButtonHandler(item.id);
                                                         } else {
                                                         return;
-                                                        }}}>삭제</StEditButton>
+                                                        }}}>삭제</Button>
       </div>
     </StComment>
       ))}
@@ -165,25 +169,25 @@ height : 20px;
 margin-bottom : 10px;
 `
 
-const StButton = styled.button`
-border: none;
-background-color: skyblue;
-height: 25px;
-cursor: pointer;
-width: 120px;
-border-radius: 12px;
-`
+// const StButton = styled.button`
+// border: none;
+// background-color: skyblue;
+// height: 25px;
+// cursor: pointer;
+// width: 120px;
+// border-radius: 12px;
+// `
 const StEditContainer = styled.div`
 margin: auto;;
 `
 
-const StEditButton = styled.button`
- border: 1px solid ${({ borderColor }) => borderColor};
-  height: 40px;
-  width: 120px;
-  background-color: #fff;
-  border-radius: 12px;
-  cursor: pointer;
-  text-align: center;
-  margin : 0 auto 10px;
-`;
+// const StEditButton = styled.button`
+//  border: 1px solid ${({ borderColor }) => borderColor};
+//   height: 40px;
+//   width: 120px;
+//   background-color: #fff;
+//   border-radius: 12px;
+//   cursor: pointer;
+//   text-align: center;
+//   margin : 0 auto 10px;
+// `;

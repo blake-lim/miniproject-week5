@@ -23,6 +23,24 @@
       "title": "4",
       "body": "4",
       "writer": "4"
+    },
+    {
+      "id": 5,
+      "title": "123123",
+      "body": "123123123123213",
+      "writer": "12312"
+    },
+    {
+      "id": 7,
+      "title": "env",
+      "body": "env",
+      "writer": "env"
+    },
+    {
+      "id": 8,
+      "title": "env222222",
+      "body": "수정할거야!!!@#@#@#!",
+      "writer": "env2"
     }
   ],
   "comments": [
@@ -51,12 +69,6 @@
       "id": 7,
       "body": "수정",
       "writer": "이번은 왜"
-    },
-    {
-      "commentId": "1",
-      "id": 8,
-      "body": "키에러 왜나지",
-      "writer": "1번이"
     },
     {
       "commentId": "1",
