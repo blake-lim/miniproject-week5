@@ -8,13 +8,10 @@
 <p align="justify">
 리액트 심화 및 리덕스 기본기를 바탕으로 한 TodoList 만들기<br>
 제한 및 공통 사항 : <br>
-  <li> 컴포넌트는 자유로 한다.</li>
+  <li> 컴포넌트 및 UI는 자유로 한다.</li>
   <li> ducks 패턴 활용한다.</li>
-  <li> Redux를 활용한다.</li>
+  <li> Redux 등 심화 과정에 필요한 자료를 활용한다.</li>
 </p>
-
-
-## <a href="https://hanghea4w-damin0320.vercel.app/">실제 배포한 Redux TodoList</a>
 
 <br>
 
