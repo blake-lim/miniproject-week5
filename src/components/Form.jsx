@@ -47,15 +47,14 @@ const Form = () => {
   }
 
   //기존 방식
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setTodo({
-      ...todo,
-      id: getMaxId() + 1,
-      [name]: value,
-      // [e.target.name]: e.target.value,
-    });
-  };
+  // const onChangeHandler = (e) => {
+  //   const { name, value } = e.target;
+  //   setTodo({
+  //     ...todo,
+  //     id: getMaxId() + 1,
+  //     [name]: value,
+  //   });
+  // };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
