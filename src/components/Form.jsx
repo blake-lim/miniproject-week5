@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { addTodo } from "../redux/modules/todosSlice";
 import axios from "axios"; // axios import 합니다.
 import { useNavigate } from "react-router-dom";
 import Button from "../elements/Button";
 import useInput from "../hooks/useInput";
+import { __addTodos } from "../redux/modules/todosSlice";
 
 // ⭐️필요 기능 구현 사항
 // 1)할일을 생성하면 자동으로 투두리스트 페이지로 리다이렉션(완료 - line 67)
@@ -20,7 +20,7 @@ const Form = () => {
   const [writer, onChangeWriterHandler] = useInput();
 
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos.todos);
+  const { isLoading, error, todos } = useSelector((state) => state.todos);
   const navigate = useNavigate();
   //id최대값
   const getMaxId = () => {
@@ -39,6 +39,13 @@ const Form = () => {
   //   const { data } = await axios.get("http://localhost:3001/todos");
   //   setTodo(data);
   // };
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
 
   //기존 방식
   const onChangeHandler = (e) => {
@@ -96,11 +103,13 @@ const Form = () => {
       title: title.title,
       body: body.body,
       writer: writer.writer,
+      paramkey: params,
     };
     // addTodo 더할 때는 형태에 맞게 더하기
     // try-catch문 필요 :
-    axios.post(params.key, obj);
-    dispatch(addTodo(todo));
+
+    // axios.post(params.key, obj);
+    dispatch(__addTodos(obj));
 
     if (todo.writer.trim() !== "" || todo.body.trim() == "")
       // 입력란 공백을 위한 공객체 생성
