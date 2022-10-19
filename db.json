@@ -17,7 +17,26 @@
       "title": "ㅇㅇ",
       "body": "ㅇㅇㅇㅇ",
       "writer": "ㅇㅇㅇ"
+    },
+    {
+      "id": 4,
+      "title": "추가",
+      "body": "추가",
+      "writer": "추가"
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "commentId": "1",
+      "id": 1,
+      "body": "ㅆㅅ",
+      "writer": "ㅅ"
+    },
+    {
+      "commentId": "1",
+      "id": 2,
+      "body": "ㄹ홀홀홇",
+      "writer": "ㅗㅗ"
+    }
+  ]
 }
