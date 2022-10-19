@@ -3,15 +3,13 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import axios from "axios"; // axios import 합니다.
 import { useEffect } from "react";
-import { addComments } from "../redux/modules/commentsSlice";
+import { __addComments, __getComments, __editComments, __deleteComments } from "../redux/modules/commentsSlice";
 import Button from "../elements/Button";
 
 const Comments = (props) => {
-  // id는 상속받자
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.comments.comments);
+  const comments = useSelector((state) => state.comments.commentList);
 
   const getMaxId = () => {
     let stateIdArr = comments.map((element) => {
@@ -29,20 +27,9 @@ const Comments = (props) => {
     key: process.env.REACT_APP_COMMENT,
   };
   const [commentList, setCommentList] = useState([]);
-  const fetchComments = async () => {
-    const { data } = await axios.get(params.key);
-    const selCommentList = data.filter((val) => {
-      return Number(props.id) === Number(val.commentId);
-    });
-    // detail id랑 axios id랑 비교
-    // 새로고침해야 값 나오는 것 해결? : useEffect로 해결
-    setCommentList(selCommentList);
-  };
-  // useEffect(() => {
-  //   fetchComments();
-  // }, [commentList]);
   useEffect(() => {
-    fetchComments();
+    dispatch(__getComments(props.id));
+    //dispatch
   }, [commentList]);
 
   const onChangeHandler = (e) => {
@@ -63,14 +50,9 @@ const Comments = (props) => {
       commentId: props.id,
       id: getMaxId() + 1,
       body: comment.body,
-      writer: comment.writer,
+      writer: comment.writer
     };
-    // addTodo 더할 때는 형태에 맞게 더하기
-    // try-catch문 필요 :
-    axios.post(params.key, obj);
-    dispatch(addComments(comment));
-
-    // 입력란 공백을 위한 공객체 생성
+    dispatch(__addComments(obj))
     setComment({
       writer: "",
       body: "",
@@ -84,26 +66,23 @@ const Comments = (props) => {
     // index로 값을 찾아서 넣는다.
   };
 
-  const [editComment, setEditComment] = useState({
-    body: "",
-  });
-  const onClickEditButtonHandler = async (id) => {
-    const res = await axios.patch(`${params.key}/${id}`, {
-      body: editComment.body,
-    });
+  const [editComment, setEditComment] = useState({body : ""});
+  const onClickEditButtonHandler = (id) => {
     setCommentList([
       {
-        ...commentList,
-        body: res.data.body,
-      },
+        ...commentList      },
     ]);
+    dispatch(__editComments({
+      id : id,
+      editComment: editComment
+    }))
   };
+  
 
-  const onClickDelButtonHandler = async (id) => {
-    const res = await axios.delete(`${params.key}/${id}`, {
-      body: editComment.body,
-    });
-  };
+  const onClickDelButtonHandler = (id) => {
+    dispatch(__deleteComments(id))
+    };
+  
   return (
     <div>
       <StWriterInput
@@ -121,12 +100,11 @@ const Comments = (props) => {
         maxLength={100}
         placeholder='댓글을 추가하세요.(100자 이내)'
       ></StBodyInput>
-      {/* ... */}
       <Button type='submit' onClick={onSubmitHandler}>
         추가하기
       </Button>
 
-      {commentList.map((item, index) => (
+      {comments.map((item, index) => (
         <StComment key={item.id}>
           {/* 타입스크립트가 아닌 이상 문제가 없다. */}
           <p>작성자 : {item.writer}</p>
