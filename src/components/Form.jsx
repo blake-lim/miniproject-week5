@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import axios from "axios"; // axios import 합니다.
 import { useNavigate } from "react-router-dom";
 import Button from "../elements/Button";
 import useInput from "../hooks/useInput";
@@ -103,7 +102,6 @@ const Form = () => {
       title: title.title,
       body: body.body,
       writer: writer.writer,
-      paramkey: params,
     };
     // addTodo 더할 때는 형태에 맞게 더하기
     // try-catch문 필요 :

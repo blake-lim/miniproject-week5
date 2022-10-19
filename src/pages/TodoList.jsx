@@ -4,36 +4,32 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Button from "../elements/Button";
+import { __deleteTodo } from "../redux/modules/todosSlice";
+import { __getTodos } from "../redux/modules/todosSlice";
+import { useSelector } from "react-redux";
 
 const TodoList = () => {
-  // const dispatch = useDispatch();
+  const { isLoading, error, todos } = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [todos, setTodos] = useState([]);
+
   const params = {
     key: process.env.REACT_APP_TODO,
   };
-  // axios를 통해서 get 요청을 하는 함수를 생성합니다.
-  // 비동기처리를 해야하므로 async/await 구문을 통해서 처리합니다.
-  const fetchTodos = async () => {
-    const { data } = await axios.get(params.key);
-    setTodos(data);
-    // 서버로부터 fetching한 데이터를 useState의 state로 set 합니다.
-    // 생성한 함수를 컴포넌트가 mount 됐을 떄 실행하기 위해 useEffect를 사용합니다.
-    // data fetching이 정상적으로 되었는지 콘솔을 통해 확인합니다
-  };
-
-  const onDeleteHandler = async (id) => {
-    await axios.delete(`${params.key}/${id}`);
-    const { data } = await axios.get(params.key);
-    setTodos(data);
-
+  const onDeleteHandler = (id) => {
+    // await axios.delete(`${params.key}/${id}`);
+    // const { data } = await axios.get(params.key);
+    // setTodos(data);
+    dispatch(__deleteTodo(id));
     // async await로 id 값 추적 후 지우고 나머지는 가져와서 아래서 mapping
   };
 
   useEffect(() => {
-    fetchTodos();
-  }, []);
+    dispatch(__getTodos());
+  }, [dispatch]);
+
   return (
     <div>
       <STHeader>
