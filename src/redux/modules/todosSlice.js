@@ -44,7 +44,7 @@ export const __deleteTodo = createAsyncThunk(
     try {
       await axios.delete(`${params.key}/${payload}`);
       const data = await axios.get(params.key);
-      console.log(data);
+
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -57,8 +57,9 @@ export const __updateTodo = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
-      await axios.patch(`${payload}`, payload.editTodo);
+      await axios.patch(`${params.key}/${payload.id}`, payload);
       const data = await axios.get(params.key);
+      console.log(data.data, "데이터");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -110,6 +111,7 @@ export const todosSlice = createSlice({
     },
     [__updateTodo.fulfilled]: (state, action) => {
       state.isLoading = false;
+      console.log("페이로드 값", action.payload);
       state.todos = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
     },
     [__updateTodo.rejected]: (state, action) => {

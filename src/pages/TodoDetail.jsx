@@ -13,7 +13,11 @@ const TodoDetail = () => {
   const { id } = useParams();
   // params로 받으면 String
   const navigate = useNavigate();
-  const [detail, setDetail] = useState([]);
+  const [detail, setDetail] = useState({
+    title: "",
+    body: "",
+    id: id,
+  });
   // 왜 초기값이 array인가? : map으로 돌린...
   // 예전 todo find 생각하면...
   const params = {
@@ -27,10 +31,26 @@ const TodoDetail = () => {
   };
   const [editTodo, setEditTodo] = useState({
     body: "",
+    id: id,
   });
 
   const onClickEditButtonHandler = () => {
-    dispatch(editTodo);
+    dispatch(__updateTodo(editTodo));
+
+    // setstate((prev) => ({
+    //   ...prev,
+    //   [name]: !state[name],
+    //   ...count,
+    //   }))
+    // ⭐️prev는 setDetail의 이전 값을 가져오는 것
+    // 업데이트 시키기 전에 처음에 있던 state 값을 prev로 가져올 수 있음.
+    // prev의 무슨 값을 넣든 이전 값을 가져옴
+
+    setDetail((prev) => ({
+      ...prev,
+      body: editTodo.body,
+    }));
+
     // 위에 변수가 선언되었는데 또 매개변수 넣을 필욘 없다.
     // res? : 요청에 대한 응답(response, html) : google.com 쳤을 떄 무슨 일 일어나는지 생각해보기.
     // 패치로 변경 했다. 스테이트가 바뀌어야 하는데... 요청만 보내고 끝났다.
@@ -84,7 +104,7 @@ const TodoDetail = () => {
               </Button>
             </StDialogHeader>
             {
-              <div key={detail.id}>
+              <div>
                 <StTitle>{detail.title}</StTitle>
                 <StBody>{detail.body}</StBody>
               </div>

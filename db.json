@@ -7,10 +7,10 @@
       "writer": "1"
     },
     {
-      "id": 2,
-      "title": "22",
-      "body": "수정되나요?",
-      "writer": "22"
+      "id": 3,
+      "title": "테스트",
+      "body": "수정했다\n",
+      "writer": "테스트"
     }
   ],
   "comments": [
