@@ -13,11 +13,15 @@
   <li> Redux 등 심화 과정에 필요한 자료를 활용한다.</li>
 </p>
 
+## <a href="https://hanghaeteam333.herokuapp.com/">헤로쿠 배포 페이지</a>
+
+## <a href="https://hanghaeweek5.vercel.app/">버셀 배포 페이지</a>
+
 <br>
 
 ## 기술 스택
 
-HTML / CSS / JavaScript / React / Redux / Redux Toolkit / git / gitHub / heroku
+HTML / CSS in JS / JavaScript / React / Redux / Redux Toolkit / git / gitHub / heroku
 
 <br>
 
@@ -56,13 +60,12 @@ HTML / CSS / JavaScript / React / Redux / Redux Toolkit / git / gitHub / heroku
 
 - 게시물인 TodoList의 생성, 읽기, 수정, 삭제 기능 모두 구현
 
-- 생성은 Reducer 이용한 action Dispatch -> 이후 읽기는 map을 활용한 객체 읽기
+- CRUD 모두 리덕스 툴킷 + thunk 활용(TodosSlice)
 
-- 수정은 상세 페이지에서 관리. axios.patch를 통해 비동기로 가져와 데이터 값 직접 변경
+- CRUD 모두 미들웨어 이용한 action Dispatch -> 리듀서 과정 비동기 처리
 
 - 토글 기능 활용한 수정 창 숨기기
 
-- 삭제는 디테일 이전 TodoList에서 axios.get으로 가져와 axios.delete를 통해 비동기로 가져와 삭제
 
 <br>
 
@@ -70,11 +73,15 @@ HTML / CSS / JavaScript / React / Redux / Redux Toolkit / git / gitHub / heroku
 
 - 게시물의 댓글의 생성, 읽기, 수정, 삭제 기능 모두 구현
 
-- 생성은 Reducer 이용한 새로운 commentsSlice 파일 만들어서 action Dispatch -> 이후 읽기는 map을 활용한 객체 읽기. 필터링 통해 부여해준 게시물과 연관된 id로 걸른 후모든 게시물에서 같은 댓글이 보이지 않게함.
+- CRUD 모두 리덕스 툴킷 + thunk 활용(commentsSlice)
 
-- 수정은 토글 식으로 관리. axios.patch를 통해 비동기로 가져와 데이터 값 직접 변경
+- CRUD 모두 미들웨어 이용한 action Dispatch -> 리듀서 과정 비동기 처리
+ 
+- 댓글은 필터링 통해 부여해준 게시물과 연관된 id로 걸른 후모든 게시물에서 같은 댓글이 보이지 않게함
 
-- 삭제는 axios.get으로 가져오는데 필터링 통해 부여해준 게시물과 연관된 id로 걸른 후 axios.delete를 통해 비동기로 가져와 삭제하여 각 게시물 당 특정 댓글만 삭제
+- 수정은 토글 식으로 관리
+
+
 <br>
 
 ### 기능 4 : 필수 구현 사항
@@ -115,16 +122,14 @@ HTML / CSS / JavaScript / React / Redux / Redux Toolkit / git / gitHub / heroku
 
 <br>
 
-### 3. redux & Router & hooks
+### 3. redux & Router & hooks & element
 - modules > todosSlice.js : todo의 Reducer 관리
 - modules > CommentsSlice.js : comment의 Reducer 관리
 - shared > Router.jsx : react-router-dom 방식에 따라 Home, 상세페이지 이동 위한 설정으로 패턴 관리
 - hooks > useInput.js : useInput이라는 커스텀훅을 이용한 todoList input하기.
-
+- element > button.js : 버튼 일원화 관리
 
 <br>
-
-### 4. hook & elements
 
 
 <br>
