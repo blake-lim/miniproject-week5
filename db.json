@@ -1,3 +1,45 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "id": 1,
+      "title": "1",
+      "body": "사오육",
+      "writer": "1"
+    },
+    {
+      "id": 2,
+      "title": "22",
+      "body": "수정되나요?",
+      "writer": "22"
+    }
+  ],
+  "comments": [
+    {
+      "commentId": "1",
+      "id": 1,
+      "body": "123",
+      "writer": "111",
+      "paramkey": {
+        "key": "http://localhost:3001/comments"
+      }
+    },
+    {
+      "commentId": "1",
+      "id": 4,
+      "body": "123",
+      "writer": "123",
+      "paramkey": {
+        "key": "http://localhost:3001/comments"
+      }
+    },
+    {
+      "commentId": "1",
+      "id": 5,
+      "body": "123123231",
+      "writer": "12312",
+      "paramkey": {
+        "key": "http://localhost:3001/comments"
+      }
+    }
+  ]
 }
