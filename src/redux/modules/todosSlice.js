@@ -111,7 +111,7 @@ export const todosSlice = createSlice({
     },
     [__updateTodo.fulfilled]: (state, action) => {
       state.isLoading = false;
-      console.log("페이로드 값", action.payload);
+
       state.todos = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
     },
     [__updateTodo.rejected]: (state, action) => {
