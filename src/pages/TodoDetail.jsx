@@ -50,7 +50,7 @@ const TodoDetail = () => {
       ...prev,
       body: editTodo.body,
     }));
-
+    //죄송
     // 위에 변수가 선언되었는데 또 매개변수 넣을 필욘 없다.
     // res? : 요청에 대한 응답(response, html) : google.com 쳤을 떄 무슨 일 일어나는지 생각해보기.
     // 패치로 변경 했다. 스테이트가 바뀌어야 하는데... 요청만 보내고 끝났다.
