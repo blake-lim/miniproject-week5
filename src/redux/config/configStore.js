@@ -17,7 +17,7 @@ import comments from "../modules/commentsSlice";
 const store = configureStore({
   reducer: { todos: todos, comments: comments },
   //dev tool을 개발 환경에서만 설정
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.REACT_APP_MOD !== "production",
 });
 
 export default store;
